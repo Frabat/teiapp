@@ -9,9 +9,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint apps/fe",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d dist",
-    "build:preview": "npm run build && npm run preview"
+    "build:preview": "yarn build && yarn preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

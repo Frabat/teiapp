@@ -5,63 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b658d52a-daa5-4134-9e6f-84f0a7a0e5b5" name="Changes" comment="feat: updated url">
-      <change afterPath="$PROJECT_DIR$/AUTH_README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.yarnrc.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/AUTH_README.md" beforeDir="false" afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/DEPLOYMENT.md" beforeDir="false" afterPath="$PROJECT_DIR$/DEPLOYMENT.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/DEPLOYMENT_CHECKLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/DEPLOYMENT_CHECKLIST.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/IMPLEMENTATION_SUMMARY.md" beforeDir="false" afterPath="$PROJECT_DIR$/IMPLEMENTATION_SUMMARY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/firebase-config.example" beforeDir="false" afterPath="$PROJECT_DIR$/firebase-config.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/public/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/public/vite.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/vite.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/assets/react.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/react.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/AuthGuard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/AuthGuard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/authSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/helpers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/sign-in.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/sign-in.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/sign-up.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/sign-up.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/useAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/useAuth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/auth/useLogout.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/useLogout.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/ErrorBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ErrorBoundary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/FileGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileGrid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/FileList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/FileUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileUpload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/FileUploadModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileUploadModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/LoadingSpinner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoadingSpinner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/TEIColumn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TEIColumn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/TEIViewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TEIViewer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/WordTooltip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WordTooltip.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/components/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/features/FileDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/FileDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/features/dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/features/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/features/welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/welcome.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/store/fileSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/fileSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/utils/teiParser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/teiParser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/src/vite-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/vite-env.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.node.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fe/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" afterPath="$PROJECT_DIR$/.yarn/install-state.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +127,7 @@
       <workItem from="1754835947787" duration="4469000" />
       <workItem from="1755584705682" duration="406000" />
       <workItem from="1755586644185" duration="2106000" />
-      <workItem from="1756343196396" duration="12842000" />
+      <workItem from="1756343196396" duration="13023000" />
     </task>
     <task id="LOCAL-00001" summary="feat: updated app skeleton with all features">
       <option name="closed" value="true" />
