@@ -58,7 +58,7 @@
     "nodejs_package_manager_path": "yarn",
     "rearrange.code.on.save": "true",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "yarn:package.json:typescript",
+    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -126,7 +126,7 @@
       <workItem from="1754835947787" duration="4469000" />
       <workItem from="1755584705682" duration="406000" />
       <workItem from="1755586644185" duration="2106000" />
-      <workItem from="1756343196396" duration="16263000" />
+      <workItem from="1756343196396" duration="17480000" />
     </task>
     <task id="LOCAL-00001" summary="feat: updated app skeleton with all features">
       <option name="closed" value="true" />
