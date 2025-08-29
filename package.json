@@ -1,4 +1,13 @@
 {
   "name": "teiapp",
-  "packageManager": "yarn@4.7.0"
+  "packageManager": "yarn@4.9.2",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "dependencies": {
+    "antd": "^5.26.3",
+    "react-router": "^7.6.3",
+    "redux-toolkit": "^1.1.2"
+  }
 }
