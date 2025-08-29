@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b658d52a-daa5-4134-9e6f-84f0a7a0e5b5" name="Changes" comment="feat: updated url">
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +125,7 @@
       <workItem from="1754835947787" duration="4469000" />
       <workItem from="1755584705682" duration="406000" />
       <workItem from="1755586644185" duration="2106000" />
-      <workItem from="1756343196396" duration="13915000" />
+      <workItem from="1756343196396" duration="14042000" />
     </task>
     <task id="LOCAL-00001" summary="feat: updated app skeleton with all features">
       <option name="closed" value="true" />
