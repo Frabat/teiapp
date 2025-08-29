@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import {
   Box,
+  Grid,
   Typography,
   Paper,
   Alert,
@@ -19,8 +20,7 @@ import {
 } from '@mui/icons-material';
 import type { ParsedTEIDocument } from '../utils/teiParser';
 import { groupSegmentsByNumber } from '../utils/teiParser';
-import VerseBlock from './VerseBlock';
-import VerseNavigation from './VerseNavigation';
+import TEIColumn from './TEIColumn';
 
 interface TEIViewerProps {
   parsedDocument: ParsedTEIDocument;
@@ -36,7 +36,6 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
   const [highlightedSegmentId, setHighlightedSegmentId] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [currentVerseIndex, setCurrentVerseIndex] = useState(0);
 
   // Filter out the first section (complete text) and only show remaining sections
   const filteredSections = useMemo(() => {
@@ -49,7 +48,7 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
   }, [filteredSections]);
 
   // Get all unique segment numbers for consistent ordering
-  const verseNumbers = useMemo(() => {
+  const segmentNumbers = useMemo(() => {
     const numbers = Array.from(groupedSegments.keys()).sort((a, b) => {
       const [aBook, aLine] = a.split('.').map(Number);
       const [bBook, bLine] = b.split('.').map(Number);
@@ -59,30 +58,6 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
     });
     return numbers;
   }, [groupedSegments]);
-
-  // Get current verse data
-  const currentVerseData = useMemo(() => {
-    if (verseNumbers.length === 0 || currentVerseIndex >= verseNumbers.length) {
-      return null;
-    }
-    
-    const currentVerseNumber = verseNumbers[currentVerseIndex];
-    const segments = groupedSegments.get(currentVerseNumber) || [];
-    
-    // Determine section types for each segment
-    const sectionTypes = segments.map(segment => {
-      if (segment.id.includes('la.')) return 'source';
-      if (segment.id.includes('Tr.it.') || segment.id.includes('it.')) return 'translation';
-      if (segment.id.includes('Note.it.') || segment.id.includes('note.')) return 'commentary';
-      return 'unknown';
-    });
-
-    return {
-      verseNumber: currentVerseNumber,
-      segments,
-      sectionTypes,
-    };
-  }, [groupedSegments, verseNumbers, currentVerseIndex]);
 
   const handleSegmentClick = (segmentId: string) => {
     setHighlightedSegmentId(segmentId);
@@ -109,27 +84,6 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
     setZoomLevel(1);
   };
 
-  // Navigation handlers
-  const handlePreviousVerse = () => {
-    if (currentVerseIndex > 0) {
-      setCurrentVerseIndex(prev => prev - 1);
-    }
-  };
-
-  const handleNextVerse = () => {
-    if (currentVerseIndex < verseNumbers.length - 1) {
-      setCurrentVerseIndex(prev => prev + 1);
-    }
-  };
-
-  const handleFirstVerse = () => {
-    setCurrentVerseIndex(0);
-  };
-
-  const handleLastVerse = () => {
-    setCurrentVerseIndex(verseNumbers.length - 1);
-  };
-
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 4 }}>
@@ -150,14 +104,6 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
     return (
       <Alert severity="warning" sx={{ m: 2 }}>
         No text sections found in the document (first section containing complete text has been removed).
-      </Alert>
-    );
-  }
-
-  if (verseNumbers.length === 0) {
-    return (
-      <Alert severity="warning" sx={{ m: 2 }}>
-        No verse segments found in the document.
       </Alert>
     );
   }
@@ -228,7 +174,7 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Typography variant="body2" color="text.secondary">
-            {filteredSections.length} text sections • {verseNumbers.length} verses
+            {filteredSections.length} text sections • {segmentNumbers.length} segments
             {parsedDocument.sections.length > filteredSections.length && (
               <span> • 1 section hidden (complete text)</span>
             )}
@@ -245,42 +191,32 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
         </Box>
       </Paper>
 
-      {/* Verse Navigation */}
-      {verseNumbers.length > 1 && (
-        <VerseNavigation
-          currentVerseIndex={currentVerseIndex}
-          totalVerses={verseNumbers.length}
-          onPrevious={handlePreviousVerse}
-          onNext={handleNextVerse}
-          onFirst={handleFirstVerse}
-          onLast={handleLastVerse}
-          currentVerseNumber={verseNumbers[currentVerseIndex]}
-        />
-      )}
-
-      {/* Main Content - Current Verse */}
+      {/* Main Content */}
       <Box
         sx={{
-          height: isFullscreen ? 'calc(100vh - 200px)' : 'auto',
+          height: isFullscreen ? 'calc(100vh - 120px)' : 'auto',
           overflow: 'auto',
           transform: `scale(${zoomLevel})`,
           transformOrigin: 'top left',
           transition: 'transform 0.2s ease-in-out',
         }}
       >
-        {currentVerseData ? (
-          <VerseBlock
-            verseNumber={currentVerseData.verseNumber}
-            segments={currentVerseData.segments}
-            sectionTypes={currentVerseData.sectionTypes}
-            onSegmentClick={handleSegmentClick}
-            highlightedSegmentId={highlightedSegmentId || undefined}
-          />
-        ) : (
-          <Alert severity="info" sx={{ m: 2 }}>
-            No verse data available for the current selection.
-          </Alert>
-        )}
+        <Grid container spacing={3} sx={{ minHeight: '100%' }}>
+          {filteredSections.map((section) => (
+            <Grid
+              key={section.id}
+              size={{ xs: 12, lg: 12 / filteredSections.length }}
+              sx={{ minHeight: '100%' }}
+            >
+              <TEIColumn
+                section={section}
+                segments={section.segments}
+                onSegmentClick={handleSegmentClick}
+                highlightedSegmentId={highlightedSegmentId || undefined}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
 
       {/* Footer */}
@@ -303,7 +239,7 @@ const TEIViewer: React.FC<TEIViewerProps> = ({
           
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Typography variant="caption" color="text.secondary">
-              Use navigation arrows to move between verses • Click on segments to highlight corresponding content
+              Click on segments to highlight corresponding content across columns
             </Typography>
           </Box>
         </Box>
