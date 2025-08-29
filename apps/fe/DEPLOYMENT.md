@@ -8,7 +8,7 @@ This guide explains how to deploy the TEI App to GitHub Pages using automated Gi
 
 Ensure your repository is named `teiapp` and is hosted on GitHub. The deployment is configured for the repository structure:
 ```
-https://github.com/francescobattista/teiapp
+https://github.com/Frabat/teiapp
 ```
 
 ### 2. Enable GitHub Pages
@@ -74,7 +74,7 @@ apps/fe/
 - **Preview**: `http://localhost:4173`
 
 ### Production
-- **GitHub Pages**: `https://francescobattista.github.io/teiapp`
+- **GitHub Pages**: `https://frabat.github.io/teiapp`
 - **Base Path**: `/teiapp/`
 
 ## ⚙️ Configuration Files
