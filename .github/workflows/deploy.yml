@@ -33,13 +33,11 @@ jobs:
         
     - name: Install dependencies
       run: |
-        cd apps/fe
-        npm ci
+        yarn install
         
     - name: Build application
       run: |
-        cd apps/fe
-        npm run build
+        yarn build
       env:
         NODE_ENV: production
         
@@ -49,7 +47,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: apps/fe/dist
+        path: dist
 
   deploy:
     environment:
