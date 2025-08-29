@@ -17,6 +17,20 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  using-github-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "${{secrets.TEST_SECRETS}}" >> .env
+
+      - name: Test printing your secret (Remove this step in production)
+        run: |
+          cat .env
   build:
     runs-on: ubuntu-latest
     
