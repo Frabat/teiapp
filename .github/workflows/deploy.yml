@@ -17,27 +17,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  using-github-secrets:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Create .env file
-        run: |
-          touch .env
-          echo "${{secrets.ENV}}" >> .env
-
-      - name: Test printing your secret (Remove this step in production)
-        run: |
-          cat .env
   build:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
+
+    - name: 'Create env file'
+      run: |
+        touch .env.production
+        echo API_KEY=${{ secrets.ENV }} >> .env.production
+        cat .env.production
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
