@@ -19,6 +19,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  SvgIcon,
 } from '@mui/material';
 import {
   AccountCircle, 
@@ -35,6 +36,7 @@ import {
 import FileUploadModal from '../components/FileUploadModal.tsx';
 import FileGrid from '../components/FileGrid.tsx';
 import type {RootState} from '../store/store.ts';
+import AppIcon from '../components/icon.tsx';
 
 interface FileItem {
   id: string;
@@ -106,29 +108,11 @@ const Home: React.FC = () => {
           justifyContent: 'space-between',
         }}>
           {/* Logo */}
-          <Button
-            variant="contained"
-            sx={{
-              bgcolor: 'white',
-              color: 'primary.main',
-              borderRadius: 2,
-              px: 3,
-              py: 1,
-              fontWeight: 'bold',
-              fontSize: '1.1rem',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            FocusApp
-          </Button>
-
+          <AppIcon />
           {/* Navigation */}
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          {/* <Box sx={{ display: 'flex', gap: 1 }}>
             {[
-              { label: 'Dashboard', active: true },
-              { label: 'Files', active: false },
-              { label: 'Analytics', active: false },
-              { label: 'Settings', active: false },
+              { label: 'Dashboard', active: true }
             ].map((item) => (
               <Button
                 key={item.label}
@@ -148,7 +132,7 @@ const Home: React.FC = () => {
                 {item.label}
               </Button>
             ))}
-          </Box>
+          </Box> */}
 
           {/* Utility Icons */}
           <Box sx={{ display: 'flex', gap: 1 }}>
@@ -404,9 +388,9 @@ const Home: React.FC = () => {
                     onClick={handleUploadClick}
                     sx={{
                       bgcolor: 'secondary.main',
-                      color: 'secondary.contrastText',
+                      color: 'primary.contrastText',
                       '&:hover': {
-                        bgcolor: 'secondary.dark',
+                        bgcolor: 'primary.dark',
                       },
                     }}
                   >

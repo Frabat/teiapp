@@ -128,8 +128,8 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
 
   segments.forEach((segment, index) => {
     const sectionType = sectionTypes[index] || 'unknown';
-    const language = segment.id.includes('.la') ? 'la' : 
-                    segment.id.includes('.it') ? 'it' : 'unknown';
+    const language = segment.id.includes('la') ? 'la' : 
+                    segment.id.includes('it') ? 'it' : 'unknown';
     
     const segmentData = { segment, sectionType, language };
     
@@ -172,7 +172,7 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
           >
             {getSectionTitle(sectionType, language)}
           </Typography>
-          <Chip
+          {language !== 'unknown' && <Chip
             label={language.toUpperCase()}
             size="small"
             sx={{
@@ -180,7 +180,7 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
               color: 'white',
               fontWeight: 'bold',
             }}
-          />
+          />}
         </Box>
 
         <Divider sx={{ mb: 1.5 }} />

@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
         <Toolbar>
           <DashboardIcon sx={{ mr: 2 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            FocusApp Dashboard
+            Euripiread Dashboard
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
             <Avatar sx={{ mr: 1, bgcolor: 'secondary.main' }}>
