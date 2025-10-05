@@ -1,42 +1,41 @@
-import React, {useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {signOut} from 'firebase/auth';
-import {auth} from '../firebase.ts';
-import {removeUser} from '../auth/authSlice.ts';
 import {
-  Avatar, 
-  Box, 
-  Button, 
-  Card, 
-  Chip, 
-  Grid, 
-  IconButton, 
-  LinearProgress, 
-  Typography,
-  Menu,
-  MenuItem,
+  AccountCircle,
+  Badge,
+  Business,
+  CloudUpload,
+  Email,
+  Group,
+  Logout,
+  Notifications,
+  Person,
+  Settings,
+} from '@mui/icons-material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  Chip,
+  Divider,
+  Grid,
+  IconButton,
+  LinearProgress,
   ListItemIcon,
   ListItemText,
-  Divider,
-  SvgIcon,
+  Menu,
+  MenuItem,
+  Typography
 } from '@mui/material';
-import {
-  AccountCircle, 
-  Business, 
-  CloudUpload, 
-  Group, 
-  Notifications, 
-  Person, 
-  Settings,
-  Logout,
-  Email,
-  Badge,
-} from '@mui/icons-material';
-import FileUploadModal from '../components/FileUploadModal.tsx';
+import { signOut } from 'firebase/auth';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { removeUser } from '../auth/authSlice.ts';
 import FileGrid from '../components/FileGrid.tsx';
-import type {RootState} from '../store/store.ts';
+import FileUploadModal from '../components/FileUploadModal.tsx';
 import AppIcon from '../components/icon.tsx';
+import { auth } from '../firebase.ts';
+import type { RootState } from '../store/store.ts';
 
 interface FileItem {
   id: string;
