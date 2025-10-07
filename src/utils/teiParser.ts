@@ -7,11 +7,19 @@ export interface TEIWord {
   }>;
 }
 
+export interface TEILine {
+  id: string;
+  number: string;
+  content: string;
+  words: TEIWord[];
+}
+
 export interface TEISegment {
   id: string;
   content: string;
   words: TEIWord[];
   lineNumbers: string[];
+  lines: TEILine[];
 }
 
 export interface TEITextSection {
@@ -106,6 +114,7 @@ export class TEIParser {
     
     const words: TEIWord[] = [];
     const lineNumbers: string[] = [];
+    const lines: TEILine[] = [];
 
     // Extract words with anchors
     const wordElements = segElement.querySelectorAll('w');
@@ -116,7 +125,7 @@ export class TEIParser {
       }
     });
 
-    // Extract line numbers from l elements
+    // Extract line-by-line information from l elements
     const lineElements = segElement.querySelectorAll('l');
     lineElements.forEach((lineElement) => {
       const lineId = lineElement.getAttribute('xml:id') || '';
@@ -125,7 +134,28 @@ export class TEIParser {
         const match = lineId.match(/\.(\d+)\.(\d+)/);
         if (match) {
           const [, book, line] = match;
-          lineNumbers.push(`${book}.${line}`);
+          const lineNumber = `${book}.${line}`;
+          lineNumbers.push(lineNumber);
+          
+          // Extract line content and words
+          const lineContent = this.extractTextContent(lineElement);
+          const lineWords: TEIWord[] = [];
+          
+          // Extract words from this specific line
+          const lineWordElements = lineElement.querySelectorAll('w');
+          lineWordElements.forEach((wordElement) => {
+            const word = this.parseWord(wordElement);
+            if (word) {
+              lineWords.push(word);
+            }
+          });
+          
+          lines.push({
+            id: lineId,
+            number: lineNumber,
+            content: lineContent,
+            words: lineWords
+          });
         }
       }
     });
@@ -134,7 +164,8 @@ export class TEIParser {
       id,
       content,
       words,
-      lineNumbers
+      lineNumbers,
+      lines
     };
   }
 
@@ -179,23 +210,32 @@ export class TEIParser {
   }
 
   private extractTextContent(element: Element): string {
-    // Extract text content while preserving some structure
+    // Extract text content while preserving TEI structure
     let content = '';
     
-    // Handle line breaks
+    // Handle line breaks according to TEI guidelines
     const lbElements = element.querySelectorAll('lb');
     if (lbElements.length > 0) {
-      // Replace lb elements with line breaks
+      // Replace lb elements with line breaks, preserving TEI formatting
       const tempDiv = element.cloneNode(true) as Element;
       lbElements.forEach(lb => {
-        lb.replaceWith(document.createTextNode('\n'));
+        // Insert line break before the lb element to maintain proper verse structure
+        const textNode = document.createTextNode('\n');
+        lb.parentNode?.insertBefore(textNode, lb);
+        lb.remove();
       });
       content = tempDiv.textContent || '';
     } else {
       content = element.textContent || '';
     }
 
-    return content.trim();
+    // Clean up the content according to TEI standards
+    return content
+      .trim() // Remove leading/trailing whitespace
+      .replace(/\s+/g, ' ') // Normalize multiple spaces to single space
+      .replace(/\n\s+/g, '\n') // Remove leading spaces from lines
+      .replace(/\s+\n/g, '\n') // Remove trailing spaces from lines
+      .replace(/\n{3,}/g, '\n\n'); // Limit consecutive line breaks to maximum of 2
   }
 
   // Helper method to get segments by ID pattern

@@ -7,8 +7,9 @@ import {
   Chip,
   Divider,
 } from '@mui/material';
-import type { TEISegment } from '../utils/teiParser';
+import type { TEISegment, TEILine } from '../utils/teiParser';
 import WordTooltip from './WordTooltip';
+import InlineWordTooltip from './InlineWordTooltip';
 
 interface VerseBlockProps {
   verseNumber: string;
@@ -51,28 +52,139 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
     }
   };
 
-  const renderSegmentContent = (segment: TEISegment) => {
+  const renderTextWithInlineTooltips = (line: TEILine) => {
+    if (!line.content) return line.content;
+
+    let content = line.content;
+    const elements: React.ReactNode[] = [];
+    let lastIndex = 0;
+
+    // Sort words by their position in the content
+    const sortedWords = line.words.sort((a, b) => {
+      const aIndex = content.indexOf(a.content);
+      const bIndex = content.indexOf(b.content);
+      return aIndex - bIndex;
+    });
+
+    sortedWords.forEach((word, wordIndex) => {
+      const wordIndex_inContent = content.indexOf(word.content, lastIndex);
+      
+      if (wordIndex_inContent !== -1) {
+        // Add text before the word
+        if (wordIndex_inContent > lastIndex) {
+          elements.push(
+            <span key={`text-${wordIndex}`}>
+              {content.slice(lastIndex, wordIndex_inContent)}
+            </span>
+          );
+        }
+        
+        // Add the word with tooltip
+        elements.push(
+          <InlineWordTooltip key={`word-${word.id}`} word={word}>
+            {word.content}
+          </InlineWordTooltip>
+        );
+        
+        lastIndex = wordIndex_inContent + word.content.length;
+      }
+    });
+
+    // Add remaining text
+    if (lastIndex < content.length) {
+      elements.push(
+        <span key="text-end">
+          {content.slice(lastIndex)}
+        </span>
+      );
+    }
+
+    return elements.length > 0 ? elements : content;
+  };
+
+  const renderSegmentContent = (segment: TEISegment, sectionType: string) => {
     if (!segment.content) return null;
 
-    // Split content by line breaks and render each line
-    const lines = segment.content.split('\n');
+    // For source sections, render line-by-line with line numbers
+    if (sectionType === 'source' && segment.lines.length > 0) {
+      return (
+        <Box sx={{ width: '100%' }}>
+          {segment.lines.map((line, lineIndex) => (
+            <Box
+              key={line.id}
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                mb: lineIndex < segment.lines.length - 1 ? 1 : 0,
+                gap: 1,
+              }}
+            >
+              {/* Line number on the left */}
+              <Typography
+                variant="caption"
+                sx={{
+                  minWidth: '40px',
+                  textAlign: 'right',
+                  color: 'text.secondary',
+                  fontFamily: 'monospace',
+                  fontSize: '0.8rem',
+                  fontWeight: 'bold',
+                  flexShrink: 0,
+                  pt: 0.2, // Slight top padding to align with text
+                }}
+              >
+                {line.number}
+              </Typography>
+              
+              {/* Line content with inline tooltips */}
+              <Typography
+                variant="body2"
+                sx={{
+                  lineHeight: 1.8,
+                  textAlign: 'left',
+                  fontFamily: 'inherit',
+                  fontSize: '0.95rem',
+                  color: 'text.primary',
+                  flex: 1,
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
+                {renderTextWithInlineTooltips(line)}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      );
+    }
+
+    // For non-source sections, use the original rendering
+    const formattedContent = segment.content
+      .trim() // Remove leading/trailing whitespace
+      .replace(/\n\s*\n/g, '\n') // Remove multiple consecutive line breaks
+      .replace(/\s+/g, ' ') // Normalize whitespace within lines
+      .replace(/\n/g, '\n'); // Preserve intentional line breaks
     
     return (
-      <Box>
-        {lines.map((line, lineIndex) => (
-          <Typography
-            key={lineIndex}
-            variant="body2"
-            sx={{
-              mb: lineIndex < lines.length - 1 ? 1 : 0,
-              lineHeight: 1.6,
-              whiteSpace: 'pre-wrap',
-            }}
-          >
-            {line}
-          </Typography>
-        ))}
-      </Box>
+      <Typography
+        variant="body2"
+        sx={{
+          lineHeight: 1.8,
+          whiteSpace: 'pre-line', // Preserves line breaks but collapses other whitespace
+          textAlign: 'left',
+          fontFamily: 'inherit',
+          fontSize: '0.95rem',
+          color: 'text.primary',
+          // Ensure proper text flow and alignment
+          display: 'block',
+          width: '100%',
+          // Remove any default margins that might cause alignment issues
+          margin: 0,
+          padding: 0,
+        }}
+      >
+        {formattedContent}
+      </Typography>
     );
   };
 
@@ -149,6 +261,8 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
         sx={{
           p: 2,
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
           cursor: onSegmentClick ? 'pointer' : 'default',
           border: highlightedSegmentId === segment.id ? `2px solid ${getSectionColor(sectionType)}` : '1px solid',
           borderColor: highlightedSegmentId === segment.id ? getSectionColor(sectionType) : 'divider',
@@ -186,13 +300,20 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
         <Divider sx={{ mb: 1.5 }} />
 
         {/* Segment Content */}
-        {renderSegmentContent(segment)}
+        <Box sx={{ 
+          minHeight: '60px', // Ensure consistent minimum height
+          display: 'flex',
+          alignItems: 'flex-start',
+          width: '100%'
+        }}>
+          {renderSegmentContent(segment, sectionType)}
+        </Box>
 
-        {/* Annotated Words */}
-        {renderWordsWithTooltips(segment)}
+        {/* Annotated Words - Only show for non-source sections */}
+        {sectionType !== 'source' && renderWordsWithTooltips(segment)}
 
-        {/* Line Numbers */}
-        {renderLineNumbers(segment)}
+        {/* Line Numbers - Only show for non-source sections */}
+        {sectionType !== 'source' && renderLineNumbers(segment)}
       </Paper>
     );
   };
@@ -233,12 +354,16 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
 
       {/* Non-Commentary Sections - Side by Side */}
       {otherSegments.length > 0 && (
-        <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid container spacing={2} sx={{ mb: 2, alignItems: 'stretch' }}>
           {otherSegments.map((segmentData) => (
             <Grid
               key={segmentData.segment.id}
               size={{ xs: 12, md: 12 / otherSegments.length }}
-              sx={{ minHeight: '100%' }}
+              sx={{ 
+                minHeight: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
             >
               {renderSegmentPaper(segmentData)}
             </Grid>
