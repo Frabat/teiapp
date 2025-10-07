@@ -35,7 +35,7 @@ function Header() {
     <AppBar position="static" color="transparent" elevation={0}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#4DCCA6' }}>
-          Euripiread
+          Euripides Rewritten
         </Typography>
         <Box>
           {['About', 'Features', 'Docs', 'Contact'].map((label) => (
@@ -126,7 +126,7 @@ function Hero() {
             Explore and annotate your documents with the power of TEI.
           </Typography>
           <Typography variant="body1" paragraph>
-            Euripiread gives you an interactive interface to view, search, and edit
+            Euripides Rewritten gives you an interactive interface to view, search, and edit
             TEI-encoded manuscripts. Structure your analysis, customize annotations,
             and export your work in one place.
           </Typography>

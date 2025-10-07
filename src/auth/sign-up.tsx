@@ -150,7 +150,7 @@ const SignUp: React.FC = () => {
           }}
         >
           <Typography component="h1" variant="h4" gutterBottom>
-            Euripiread
+            Euripides Rewritten
           </Typography>
           
           <Typography component="h2" variant="h6" color="text.secondary" gutterBottom>
